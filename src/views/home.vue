@@ -1,109 +1,198 @@
+<style lang="less" scoped>
+.main {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  // background: rgba(15, 17, 24, 0.5);
+  &-body {
+    position: relative;
+    // min-width: 996px;
+    // max-width: 1920px;
+    margin: 0 auto;
+    &-wrapper-header {
+      width: 100%;
+      height: 100px;
+      background: rgba(7, 9, 17, 0.6);
+      position: fixed;
+      top: 0px;
+      z-index: 9;
+    }
+  }
+}
+</style>
+
 <template>
-  <div class="home">
-    <!-- Page Preloder -->
-    <!-- <div id="preloder">
-      <div class="loader"></div>
-    </div> -->
-
-    <!-- Header section start -->
-    <header class="header-area">
-      <a href="home.html"
-         class="logo-area">
-        <img src="@/assets/logo.png"
-             alt="">
-      </a>
-      <div class="nav-switch">
-        <i class="fa fa-bars"></i>
-      </div>
-      <div class="phone-number"><a href="contact.html">GET IN TOUCH</a></div>
-      <nav class="nav-menu">
-        <ul>
-          <li class="active"><a href="home.html">Home</a></li>
-          <li><a href="about.html">About us</a></li>
-          <li><a href="service.html">Services</a></li>
-          <li><a href="portfolio.html">Portfolio</a></li>
-          <li><a href="contact.html">ONETOY</a></li>
-        </ul>
-      </nav>
-    </header>
-    <!-- Header section end -->
-
-    <!-- Hero section start -->
-    <section class="hero-section">
-      <!-- left social link ber -->
-      <div class="left-bar">
-        <div class="left-bar-content">
-          <!-- <div class="social-links">
-					<a href="#"><i class="fa fa-pinterest"></i></a>
-					<a href="#"><i class="fa fa-linkedin"></i></a>
-					<a href="#"><i class="fa fa-instagram"></i></a>
-					<a href="#"><i class="fa fa-facebook"></i></a>
-					<a href="#"><i class="fa fa-twitter"></i></a>
-				</div> -->
+  <div class="main">
+    <div class="main-body">
+      <header class="header-area">
+        <a href="index.html"
+           class="logo-area">
+          <img src="../assets/img/logo.png"
+               alt="">
+        </a>
+        <div class="nav-switch">
+          <span class="fa fa-bars">
+            <svg t="1628993659128"
+                 class="icon"
+                 viewBox="0 0 1024 1024"
+                 version="1.1"
+                 xmlns="http://www.w3.org/2000/svg"
+                 p-id="1647"
+                 width="26"
+                 height="30">
+              <path d="M936.19430083 441.30094987c20.7383885 0 37.70616053 7.06990501 50.90331611 21.20971504S1006.89335097 493.14692043 1006.89335097 512s-7.06990501 35.34952507-21.20971503 49.48933509-30.63625552 21.20971504-49.48933511 21.20971504H87.80569917c-18.85307957 0-35.34952507-7.06990501-49.48933511-21.20971504S17.10664903 530.85307957 17.10664903 512s6.59857847-35.34952507 19.79573403-49.48933509S67.06731066 441.30094987 87.80569917 441.30094987h848.38860166zM87.80569917 299.90284958c-18.85307957 0-35.34952507-7.06990501-49.48933511-21.20971504S17.10664903 248.05687901 17.10664903 229.20379943s6.59857847-35.34952507 19.79573403-49.4893351S67.06731066 158.5047493 87.80569917 158.5047493h848.38860166c20.7383885 0 37.70616053 7.06990501 50.90331611 21.20971503S1006.89335097 210.35071986 1006.89335097 229.20379943s-7.06990501 35.34952507-21.20971503 49.48933511-30.63625552 21.20971504-49.48933511 21.20971504H87.80569917z m848.38860166 424.19430084c20.7383885 0 37.70616053 7.06990501 50.90331611 21.20971504S1006.89335097 775.94312099 1006.89335097 794.79620057s-7.06990501 35.34952507-21.20971503 49.4893351-30.63625552 21.20971504-49.48933511 21.20971503H87.80569917c-18.85307957 0-35.34952507-7.06990501-49.48933511-21.20971503S17.10664903 813.64928014 17.10664903 794.79620057s6.59857847-35.34952507 19.79573403-49.48933511S67.06731066 724.09715042 87.80569917 724.09715042h848.38860166z"
+                    fill="#3b3b3b"
+                    p-id="1648"></path>
+            </svg>
+          </span>
+          <!-- <i class="fa fa-bars"></i> -->
         </div>
-      </div>
-      <!-- hero slider area -->
-      <div class="hero-slider">
-        <div class="hero-slide-item set-bg">
-          <div class="slide-inner">
-            <div class="slide-content">
-              <h2>Dgital <br>Marketing & <br> Design Agency</h2>
-              <a href="#"
-                 class="site-btn sb-light">See Project</a>
+        <div class="phone-number">
+          <a href="javascript:void(0);"
+             @click="routerTo('contact')">GET IN TOUCH</a>
+        </div>
+        <nav class="nav-menu">
+          <ul>
+            <li>
+              <a href="javascript:void(0);"
+                 @click="routerTo('home')">
+                Home
+              </a>
+            </li>
+            <li class="active">
+              <a href="javascript:void(0);"
+                 @click="routerTo('about')">
+                About us
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);"
+                 @click="routerTo('service')">
+                Services
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);"
+                 @click="routerTo('portfolio')">
+                Portfolio
+              </a>
+            </li>
+            <li>
+              <a href="javascript:void(0);"
+                 @click="routerTo('portfolio')">
+                ONETOY
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <router-view />
+      <footer class="footer-section">
+        <div class="footer-social">
+          <div class="social-links">
+            <a href="javascript:void(0);"
+               @click="routerTo('contact')">
+              GET IN TOUCH
+            </a>
+          </div>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 offset-lg-6">
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="footer-item">
+                    <ul>
+                      <li>
+                        <a href="javascript:void(0);"
+                           @click="routerTo('home')">
+                          Home
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);"
+                           @click="routerTo('about')">
+                          About us
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="footer-item">
+                    <ul>
+                      <li>
+                        <a href="javascript:void(0);"
+                           @click="routerTo('service')">
+                          Services
+                        </a>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0);"
+                           @click="routerTo('portfolio')">
+                          Portfolio
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="footer-item">
+                    <ul>
+                      <li><a href="javascript:void(0);"
+                           @click="routerTo('home')">Privacy</a></li>
+                      <li><a href="javascript:void(0);"
+                           @click="routerTo('contact')">Contact us</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="hero-slide-item set-bg">
-          <div class="slide-inner">
-            <div class="slide-content">
-              <h2>Dgital <br>Marketing & <br> Design Agency</h2>
-              <a href="#"
-                 class="site-btn sb-light">See Project</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="slide-num-holder"
-           id="snh-1"></div>
-      <div class="hero-right-text">ZONECREATIVE</div>
-    </section>
-    <!-- Hero section end -->
 
-    <!-- Intro section start -->
-    <section class="intro-section pt100 pb50">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-7 intro-text mb-5 mb-lg-0">
-            <h2 class="sp-title">Be Creative, <br /> Be Good to <span>Work</span></h2>
-            <p>
-              用认知科学驱动的品牌战略咨询，基于认知科学创建品牌方法论，通过定位、符号创建、品牌营销与传播策略，协助企业创建品牌心智语汇。<br />
-              业务涉及：战略品牌定位咨询、广告、公关与活动、数字营销和社会化营销、品牌识别设计、IP形象创意设计与孵化等。<br />
-              上海之万已成功服务众多创新型独角兽企业、和资产规模数千亿的大型企业集团。我们与Top100中的20+客户建立了合作关系，为奔驰、万科、汇丰、阿里巴巴等集团及品牌提供品牌咨询与设计服务，帮助更多企业实现其品牌雄心和商业抱负、迈向更大规模。
-            </p>
-            <a href="#"
-               class="site-btn sb-dark">See Project</a>
-          </div>
-          <div class="col-lg-5 pt-4">
-            <img src="@/assets/intro.png"
-                 alt="">
-          </div>
+        <div class="copyright">
+          Copyright &copy;
+          {{ year }}
+          All rights reserved. <br>
+          The function of design is letting design function. @Z·ONE Studio
         </div>
-      </div>
-    </section>
-    <!-- Intro section end -->
-
+      </footer>
+    </div>
   </div>
 </template>
-
 <script>
+
+import $ from 'jquery'
+import { constantRouterMap } from '../router/index'
+
 export default {
   name: 'home',
-  props: {
-    msg: String
+  data () {
+    return {
+      menu: constantRouterMap[0].children.filter(item => item.showMenu),
+      year: ''
+    }
+  },
+  components: {
+  },
+  computed: {
+  },
+  created () {
+    this.year = new Date().getFullYear();
+  },
+  mounted () {
+    $('.nav-switch').on('click', function (event) {
+      $('.nav-menu').slideToggle(400);
+      event.preventDefault();
+    });
+  },
+  methods: {
+    routerTo (router) {
+      this.$router.push({
+        name: router
+      });
+    }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-</style>

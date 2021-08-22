@@ -7,12 +7,22 @@ const resolve = (dir) => {
 
 module.exports = {
   publicPath: './',
-  // configureWebpack: {
-  //   plugins: [
-  //     new webpack.ProvidePlugin({
-  //     })
-  //   ]
-  // },
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://z1creative.com/'
+      }
+    }
+  },
+  configureWebpack: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+      }),
+    ]
+  },
   chainWebpack: config => {
     config.resolve.alias
       .set('@', resolve('src'))
