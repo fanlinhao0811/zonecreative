@@ -27,7 +27,7 @@
       <header class="header-area">
         <a href="index.html"
            class="logo-area">
-          <img src="../assets/img/logo.png"
+          <img src="../assets/logo.png"
                alt="">
         </a>
         <div class="nav-switch">
