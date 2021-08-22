@@ -3,6 +3,8 @@
   background-image: url("../assets/header-bg.jpg");
 }
 .service-box-section {
+  background-size: cover;
+  background-repeat: no-repeat;
   background-image: url("../assets/service-bg.jpg");
 }
 .promo-box {
@@ -22,18 +24,20 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-5">
-            <div class="service-slider">
-              <div class="ss-single">
-                <img src="../assets/service/1.jpg"
-                     alt="">
-              </div>
-              <div class="ss-single">
-                <img src="../assets/service/2.jpg"
-                     alt="">
-              </div>
-              <div class="ss-single">
-                <img src="../assets/service/3.jpg"
-                     alt="">
+            <div class="service-slider swiper-container">
+              <div class="swiper-wrapper service-slider">
+                <div class="swiper-slide ss-single">
+                  <img src="../assets/service/1.jpg"
+                       alt="">
+                </div>
+                <div class="swiper-slide ss-single">
+                  <img src="../assets/service/2.jpg"
+                       alt="">
+                </div>
+                <div class="swiper-slide ss-single">
+                  <img src="../assets/service/3.jpg"
+                       alt="">
+                </div>
               </div>
             </div>
           </div>
@@ -56,8 +60,7 @@
       </div>
     </section>
 
-    <div class="service-box-section spad set-bg"
-         data-setbg="img/service-bg.jpg">
+    <div class="service-box-section spad">
       <div class="container">
         <div class="row">
           <div class="col-lg-4 col-md-6">
@@ -229,9 +232,8 @@
   </div>
 </template>
 <script>
-
-// import $ from 'jquery'
-
+import Swiper from 'swiper';
+import 'swiper/css/swiper.min.css';
 export default {
   name: 'welcome',
   data () {
@@ -243,10 +245,9 @@ export default {
   created () {
   },
   mounted () {
-    // $('.set-bg').each(function () {
-    //   let bg = $(this).data('setbg');
-    //   $(this).css('background-image', 'url(' + bg + ')');
-    // });
+    new Swiper('.swiper-container', {
+      autoplay: true
+    });
   },
   methods: {
   }
