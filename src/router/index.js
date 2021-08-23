@@ -42,6 +42,12 @@ export const constantRouterMap = [
         name: 'portfolio',
         showMenu: true,
         component: () => import('@/views/portfolio.vue')
+      },
+      {
+        path: '/oneToy',
+        name: 'oneToy',
+        showMenu: true,
+        component: () => import('@/views/oneToy.vue')
       }
     ]
   }

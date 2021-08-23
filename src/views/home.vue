@@ -53,34 +53,12 @@
         </div>
         <nav class="nav-menu">
           <ul>
-            <li>
+            <li v-for="(item, index) in menuList"
+                :key="index"
+                :class="{'active': currentMenu === item.value}">
               <a href="javascript:void(0);"
-                 @click="routerTo('home')">
-                Home
-              </a>
-            </li>
-            <li class="active">
-              <a href="javascript:void(0);"
-                 @click="routerTo('about')">
-                About us
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0);"
-                 @click="routerTo('service')">
-                Services
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0);"
-                 @click="routerTo('portfolio')">
-                Portfolio
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0);"
-                 @click="routerTo('portfolio')">
-                ONETOY
+                 @click="routerTo(item.value)">
+                {{ item.name }}
               </a>
             </li>
           </ul>
@@ -171,7 +149,15 @@ export default {
   data () {
     return {
       menu: constantRouterMap[0].children.filter(item => item.showMenu),
-      year: ''
+      year: '',
+      currentMenu: 'home',
+      menuList: [
+        { value: 'home', name: "HOME" },
+        { value: 'about', name: "About us" },
+        { value: 'service', name: "Services" },
+        { value: 'portfolio', name: "Portfolio" },
+        { value: 'oneToy', name: "ONETOY" }
+      ]
     }
   },
   components: {
@@ -192,6 +178,7 @@ export default {
       this.$router.push({
         name: router
       });
+      this.currentMenu = router;
     }
   }
 }

@@ -6,10 +6,6 @@ li.btn-active {
   background: #baff00;
   color: #222222;
 }
-.oneToy {
-  // height: 1024px;
-  background-image: url("https://z1creative.com/upload/2/5.png");
-}
 .hover {
   position: fixed;
   top: 0;
@@ -96,7 +92,13 @@ li.btn-active {
       <div class="portfolio-warp spad">
         <div id="portfolio">
           <div class="grid-sizer"></div>
-          <div class="grid-item set-bg-portfolio grid-wide oneToy"></div>
+          <div v-for="(item, index) in tableData"
+               :key="index"
+               :class="['grid-item', 'set-bg-portfolio', item.grid_size]"
+               :style="{
+                  'background-image': 'url(/api/upload/' + item.images[0].filename + ')'
+                }">
+          </div>
         </div>
       </div>
     </div>
@@ -131,10 +133,11 @@ import $ from 'jquery'
 // import Swiper from 'swiper';
 import 'swiper/css/swiper.min.css';
 export default {
-  name: 'portfolio',
+  name: 'oneToy',
   data () {
     return {
-      currentCategory: 'branding',
+      tableData: [],
+      currentCategory: 'oneToy',
       categoryList: [
         { id: 'branding', name: "VI System" },
         { id: 'events', name: "Events" },
@@ -151,7 +154,7 @@ export default {
   created () {
     this.$api.getPortfolio(
       {
-        category: 'branding'
+        category: 'oneToy'
       }
     ).then(res => {
       this.tableData = res.data;

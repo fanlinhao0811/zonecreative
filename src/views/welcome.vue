@@ -8,6 +8,9 @@
 .slide-content {
   opacity: 1;
 }
+.swiper-logo {
+  overflow: hidden;
+}
 </style>
 
 <template>
@@ -168,6 +171,29 @@
       </div>
     </div>
 
+    <div class="client-section spad">
+      <div class="container">
+        <div id="client-carousel"
+             class="client-slider swiper-logo">
+          <div class="swiper-wrapper">
+            <div v-for="item in 14"
+                 :key="item"
+                 class="swiper-slide single-brand">
+              <a href="javascript:void(0);">
+                <img :src="require('../assets/clients/clients' + item + '.png')"
+                     alt="">
+              </a>
+            </div>
+            <div class="swiper-slide single-brand">
+              <a href="javascript:void(0);">
+                <img src="../assets/clients/clients2.png"
+                     alt="">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -194,6 +220,14 @@ export default {
           this.currectPage = this.swiper.activeIndex + 1;
         }
       },
+    });
+    new Swiper('.swiper-logo', {
+      loop: true,
+      autoplay: {
+        delay: 2000,
+      },
+      slidesPerView: 5,
+      spaceBetween: 20
     });
   },
   methods: {
