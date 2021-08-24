@@ -94,10 +94,11 @@ li.btn-active {
           <div class="grid-sizer"></div>
           <div v-for="(item, index) in tableData"
                :key="index"
-               :class="['grid-item', 'set-bg-portfolio', item.grid_size]"
+               :class="['grid-item', 'set-bg-portfolio', 'grid-wide']"
                :style="{
-                  'background-image': 'url(/api/upload/' + item.images[0].filename + ')'
-                }">
+                  backgroundImage: `url(https://z1creative.com/upload/${item.cover.filename})`
+                }"
+               @click="show(item)">
           </div>
         </div>
       </div>
@@ -113,13 +114,13 @@ li.btn-active {
         <div class="hover-container-main"></div>
         <div class="hover-container-wrapper">
           <div class="hover-container-wrapper-title">
-            赛博朋克系列潮流玩具雕像
+            {{ showPottfolio.name }}
           </div>
           <div class="hover-container-wrapper-desc">
-            赛博朋克描绘的是未来科技也许将带来的毁灭性一面：社会腐朽，贫富差距拉大，社会秩序崩溃或濒临崩溃，末日般的破败…它的出现来自于人们对科学发展方向和成果未知性的恐惧，而这种恐惧也是最容易为人所认同的。作为本系列的序章，潮玩Hancock与她的生化蛇加入了控制论与电脑生化/脑机的设计元素，表达勇于挑战规章制度的热血精神。
+            {{ showPottfolio.description }}
           </div>
           <div class="hover-container-wrapper-date">
-            潮玩盲盒手办文创产品
+            {{ showPottfolio.tags[0] }}
           </div>
         </div>
       </div>
@@ -146,22 +147,25 @@ export default {
         { id: 'advertisement', name: "Advertisement" },
         { id: 'oneToy', name: "One Toy" }
       ],
-      showHover: false
+      showHover: false,
+      showPottfolio: {}
     }
   },
   computed: {
   },
   created () {
+  },
+  mounted () {
     this.$api.getPortfolio(
       {
         category: 'oneToy'
       }
     ).then(res => {
       this.tableData = res.data;
+      setTimeout(() => {
+        this.portfolio_item_size()
+      }, 0)
     })
-  },
-  mounted () {
-    this.portfolio_item_size()
   },
   methods: {
     filterPortfolio (item) {
@@ -171,13 +175,16 @@ export default {
       $('#portfolio').find('.grid-item').each(function () {
         var pi_height1 = $(this).outerWidth(true),
           pi_height2 = pi_height1 / 2;
-
         if ($(this).hasClass('grid-long') && $(window).innerWidth() > 991) {
           $(this).css('height', pi_height2);
         } else {
           $(this).css('height', Math.abs(pi_height1));
         }
       });
+    },
+    show (item) {
+      this.showPottfolio = item;
+      this.showHover = true;
     },
     closeHover () {
       this.showHover = false;
