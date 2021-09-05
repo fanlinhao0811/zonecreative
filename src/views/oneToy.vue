@@ -67,6 +67,11 @@ li.btn-active {
       }
     }
   }
+  .swiper-slide-img {
+    width: 772px;
+    height: 514px;
+    object-fit: cover;
+  }
 }
 </style>
 
@@ -94,8 +99,9 @@ li.btn-active {
           <div class="grid-sizer"></div>
           <div v-for="(item, index) in tableData"
                :key="index"
-               :class="['grid-item', 'set-bg-portfolio', 'grid-wide']"
+               :class="['grid-item', 'set-bg-portfolio', item.grid_size]"
                :style="{
+                  float: 'left',
                   backgroundImage: `url(https://z1creative.com/upload/${item.cover.filename})`
                 }"
                @click="show(item)">
@@ -111,7 +117,19 @@ li.btn-active {
              @click="closeHover">
           X
         </div>
-        <div class="hover-container-main"></div>
+        <div class="hover-container-main">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"
+                   v-for="(item, index) in showPottfolio.images"
+                   :key="index">
+                <img :src="`https://z1creative.com/upload/${item.filename}`"
+                     alt=""
+                     class="swiper-slide-img">
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="hover-container-wrapper">
           <div class="hover-container-wrapper-title">
             {{ showPottfolio.name }}
@@ -131,7 +149,7 @@ li.btn-active {
 
 <script>
 import $ from 'jquery'
-// import Swiper from 'swiper';
+import Swiper from 'swiper';
 import 'swiper/css/swiper.min.css';
 export default {
   name: 'oneToy',
@@ -170,6 +188,16 @@ export default {
   methods: {
     filterPortfolio (item) {
       this.currentCategory = item.id;
+      this.$api.getPortfolio(
+        {
+          category: this.currentCategory
+        }
+      ).then(res => {
+        this.tableData = res.data;
+        setTimeout(() => {
+          this.portfolio_item_size()
+        }, 0)
+      })
     },
     portfolio_item_size () {
       $('#portfolio').find('.grid-item').each(function () {
@@ -185,10 +213,13 @@ export default {
     show (item) {
       this.showPottfolio = item;
       this.showHover = true;
+      this.$nextTick(() => {
+        new Swiper('.swiper-container');
+      })
     },
     closeHover () {
       this.showHover = false;
-    },
+    }
   }
 }
 </script>

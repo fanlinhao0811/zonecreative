@@ -6,10 +6,6 @@ li.btn-active {
   background: #baff00;
   color: #222222;
 }
-.oneToy {
-  // height: 1024px;
-  background-image: url("https://z1creative.com/upload/2/5.png");
-}
 .hover {
   position: fixed;
   top: 0;
@@ -71,6 +67,11 @@ li.btn-active {
       }
     }
   }
+  .swiper-slide-img {
+    width: 772px;
+    height: 514px;
+    object-fit: cover;
+  }
 }
 </style>
 
@@ -96,7 +97,15 @@ li.btn-active {
       <div class="portfolio-warp spad">
         <div id="portfolio">
           <div class="grid-sizer"></div>
-          <div class="grid-item set-bg-portfolio grid-wide oneToy"></div>
+          <div v-for="(item, index) in tableData"
+               :key="index"
+               :class="['grid-item', 'set-bg-portfolio', item.grid_size]"
+               :style="{
+                  float: 'left',
+                  backgroundImage: `url(https://z1creative.com/upload/${item.cover.filename})`
+                }"
+               @click="show(item)">
+          </div>
         </div>
       </div>
     </div>
@@ -108,16 +117,28 @@ li.btn-active {
              @click="closeHover">
           X
         </div>
-        <div class="hover-container-main"></div>
+        <div class="hover-container-main">
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"
+                   v-for="(item, index) in showPottfolio.images"
+                   :key="index">
+                <img :src="`https://z1creative.com/upload/${item.filename}`"
+                     alt=""
+                     class="swiper-slide-img">
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="hover-container-wrapper">
           <div class="hover-container-wrapper-title">
-            赛博朋克系列潮流玩具雕像
+            {{ showPottfolio.name }}
           </div>
           <div class="hover-container-wrapper-desc">
-            赛博朋克描绘的是未来科技也许将带来的毁灭性一面：社会腐朽，贫富差距拉大，社会秩序崩溃或濒临崩溃，末日般的破败…它的出现来自于人们对科学发展方向和成果未知性的恐惧，而这种恐惧也是最容易为人所认同的。作为本系列的序章，潮玩Hancock与她的生化蛇加入了控制论与电脑生化/脑机的设计元素，表达勇于挑战规章制度的热血精神。
+            {{ showPottfolio.description }}
           </div>
           <div class="hover-container-wrapper-date">
-            潮玩盲盒手办文创产品
+            {{ showPottfolio.tags[0] }}
           </div>
         </div>
       </div>
@@ -128,12 +149,13 @@ li.btn-active {
 
 <script>
 import $ from 'jquery'
-// import Swiper from 'swiper';
+import Swiper from 'swiper';
 import 'swiper/css/swiper.min.css';
 export default {
   name: 'portfolio',
   data () {
     return {
+      tableData: [],
       currentCategory: 'branding',
       categoryList: [
         { id: 'branding', name: "VI System" },
@@ -143,32 +165,44 @@ export default {
         { id: 'advertisement', name: "Advertisement" },
         { id: 'oneToy', name: "One Toy" }
       ],
-      showHover: false
+      showHover: false,
+      showPottfolio: {}
     }
   },
   computed: {
   },
   created () {
+  },
+  mounted () {
     this.$api.getPortfolio(
       {
         category: 'branding'
       }
     ).then(res => {
       this.tableData = res.data;
+      setTimeout(() => {
+        this.portfolio_item_size()
+      }, 0)
     })
-  },
-  mounted () {
-    this.portfolio_item_size()
   },
   methods: {
     filterPortfolio (item) {
       this.currentCategory = item.id;
+      this.$api.getPortfolio(
+        {
+          category: this.currentCategory
+        }
+      ).then(res => {
+        this.tableData = res.data;
+        setTimeout(() => {
+          this.portfolio_item_size()
+        }, 0)
+      })
     },
     portfolio_item_size () {
       $('#portfolio').find('.grid-item').each(function () {
         var pi_height1 = $(this).outerWidth(true),
           pi_height2 = pi_height1 / 2;
-
         if ($(this).hasClass('grid-long') && $(window).innerWidth() > 991) {
           $(this).css('height', pi_height2);
         } else {
@@ -176,9 +210,16 @@ export default {
         }
       });
     },
+    show (item) {
+      this.showPottfolio = item;
+      this.showHover = true;
+      this.$nextTick(() => {
+        new Swiper('.swiper-container');
+      })
+    },
     closeHover () {
       this.showHover = false;
-    },
+    }
   }
 }
 </script>
