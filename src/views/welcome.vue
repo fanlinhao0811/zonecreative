@@ -5,6 +5,10 @@
 .hero-slide-item {
   background-image: url("../assets/bg.jpg");
 }
+li.btn-active {
+  background: #baff00;
+  color: #222222;
+}
 .slide-content {
   opacity: 1;
 }
@@ -151,23 +155,33 @@
           </div>
           <div class="col-lg-9">
             <ul class="projects-filter-nav">
-              <li class="btn-filter btn-active"
-                  data-filter=".brand">VI System</li>
-              <li class="btn-filter"
-                  data-filter=".events">Events</li>
-              <li class="btn-filter"
-                  data-filter=".ui">UI/UX</li>
-              <li class="btn-filter"
-                  data-filter=".packing">Packing</li>
-              <li class="btn-filter"
-                  data-filter=".advertisement">Advertisement</li>
-              <!-- <li class="btn-filter" data-filter=".oneToy">One Toy</li> -->
+              <li v-for="(item, index) in categoryList"
+                  :key="index"
+                  :class="{'btn-filter': true, 'btn-active': currentCategory === item.id}"
+                  :id="item.id"
+                  @click="filterPortfolio(item)">{{ item.name }}</li>
             </ul>
           </div>
         </div>
       </div>
       <div id="projects-carousel"
-           class="projects-slider">
+           class="projects-slider swiper-container-pro">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"
+               v-for="(item, index) in tableDataCopy"
+               :key="index">
+            <div class="single-project"
+                 :style="{backgroundImage: `url(https://z1creative.com/upload/${item.cover2.filename})`}">
+              <div class="project-content project-content-hover">
+                <h2>{{ item.name }}</h2>
+                <p>{{ item.tags[0] }}</p>
+                <a href="#"
+                   class="seemore">See Project </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -206,14 +220,39 @@ export default {
   data () {
     return {
       swiper: null,
-      currectPage: '1'
+      currectPage: '1',
+      currentCategory: 'branding',
+      categoryList: [
+        { id: 'branding', name: "VI System" },
+        { id: 'events', name: "Events" },
+        { id: 'ui', name: "UI/UX" },
+        { id: 'packing', name: "Packing" },
+        { id: 'advertisement', name: "Advertisement" }
+      ],
+      tableData: []
     }
   },
   computed: {
+    tableDataCopy () {
+      return this.tableData.filter(item => Object.prototype.hasOwnProperty.call(item.cover2, 'filename'))
+    }
   },
   created () {
   },
   mounted () {
+    this.$api.getPortfolio(
+      {
+        category: 'branding'
+      }
+    ).then(res => {
+      this.tableData = res.data;
+      this.$nextTick(() => {
+        new Swiper('.swiper-container-pro', {
+          slidesPerView: 4,
+          spaceBetween: 20,
+        })
+      })
+    })
     this.swiper = new Swiper('.swiper-container', {
       on: {
         'slideChange': () => {
@@ -229,8 +268,19 @@ export default {
       slidesPerView: 5,
       spaceBetween: 20
     });
+
   },
   methods: {
+    filterPortfolio (item) {
+      this.currentCategory = item.id;
+      this.$api.getPortfolio(
+        {
+          category: this.currentCategory
+        }
+      ).then(res => {
+        this.tableData = res.data;
+      })
+    },
   }
 }
 </script>
