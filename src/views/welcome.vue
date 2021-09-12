@@ -76,6 +76,9 @@ li.btn-active {
       }
     }
   }
+  .swiper-container-hover {
+    overflow: hidden;
+  }
   .swiper-slide-img {
     width: 772px;
     height: 514px;
